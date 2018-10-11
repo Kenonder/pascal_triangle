@@ -8,52 +8,54 @@
 
 #include <iostream>
 
-#ifndef MARMOSET_TESTING
-int main();
-#endif
-
 int pascal_triangle( int n );
 int pascal_triangle_recursive( int n );
 int recursion( int row,int col );
 
 #ifndef MARMOSET_TESTING
+int main();
+#endif
+
+
+#ifndef MARMOSET_TESTING
 int main(){
-	int row{0};
-	std::cout<<"Input the number of rows:";
-	std::cin>>row;
-	int n = pascal_triangle(row);
-	std::cout<<"The number of integers in the triangle is "<<n<<std::endl<<std::endl;
-	std::cout<<"Input the number of rows:";
-    std::cin>>row;
-	n = pascal_triangle_recursive(row);
-	std::cout<<"The number of integers in the triangle is "<<n<<std::endl;
+    std::cout<<pascal_triangle(14)<<std::endl;
+    std::cout<< pascal_triangle_recursive(14)<<std::endl;
 	return 0;
 }
 #endif
 
 int pascal_triangle( int n ){
-	for (int row{0}; row < n; row++)
+	int sum=0;
+	int element;
+	for (int row=0; row < n + 1; row++)
 	    {
-	        int element{1};
-
-	        for (int col{0}; col <= row; col++)
+	        for (int col=0; col <= row; col++)
 	        {
-	            std::cout<<element<<" ";
-	            element = element * (row - col) / (col + 1);
+	        	if (col == 0 || row == 0){
+	        		element = 1;
+	        	}
+	           	else{
+	            element = element * (row - col + 1) / col;
+	           	}
+	        	std::cout<<element<<" ";
+	            sum++;
 	        }
-	        std::cout << std::endl << std::endl;
+	        std::cout << std::endl;
 	    }
-        return (1+n) * n / 2;
+        return sum;
 }
 
 int pascal_triangle_recursive( int n ){
-	for(int row{0};row < n;++row){
-		for(int col{0};col <= row;++col ){
+	int sum=0;
+	for(int row=0;row < n + 1;++row){
+		for(int col=0;col <= row;++col ){
 		std::cout<<recursion(row,col)<<" ";
+		sum++;
 		}
-		std::cout<<std::endl<< std::endl;
+		std::cout<<std::endl;
 	}
-	return (1+n) * n / 2;
+	return sum;
 }
 
 int recursion(int row,int col){
